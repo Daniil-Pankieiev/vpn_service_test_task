@@ -16,13 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic import RedirectView
 
 from accounts.views import UserRegisterView, LogoutConfirmation
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-path("accounts/", include("django.contrib.auth.urls")),
-
+    path("admin/", admin.site.urls),
+    path("accounts/", include("django.contrib.auth.urls")),
+    path("", RedirectView.as_view(pattern_name="vpn:site_list")),
     path("", include("accounts.urls", namespace="account")),
     path("", include("vpn.urls", namespace="vpn")),
 ]
